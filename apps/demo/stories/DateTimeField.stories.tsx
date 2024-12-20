@@ -1,10 +1,10 @@
-import {Box, Button, DateTimeField, DateTimeFieldProps} from "ferns-ui";
+import {Box, Button, DateTimeField, DateTimeFieldProps, Text} from "ferns-ui";
 import React, {ReactElement, useState} from "react";
 
 export const DateTimeFieldDemo = (props: Partial<DateTimeFieldProps>): ReactElement => {
   const [value, setValue] = useState("");
   return (
-    <Box maxWidth={400}>
+    <Box maxWidth={500}>
       <DateTimeField
         helperText="Supporting helper text"
         title="Date and Time Field"
@@ -23,59 +23,70 @@ export const DateTimeFieldStory = (): ReactElement => {
   const [value, setValue] = useState("");
   const [disabled, setDisabled] = useState(false);
   return (
-    <Box maxWidth={400} gap={2}>
+    <Box gap={2} maxWidth={500}>
       <DateTimeField
+        disabled={disabled}
         helperText={disabled ? "Tell the user why this is disabled." : undefined}
         title="type datetime"
         type="datetime"
         value={value}
-        disabled={disabled}
         onChange={(v) => {
           setValue(v);
         }}
       />
-      <Button onClick={() => setDisabled(!disabled)} text="Toggle Disabled" />
+      <Button text="Toggle Disabled" onClick={() => setDisabled(!disabled)} />
     </Box>
   );
 };
 
 export const DateTimeFieldTypes = (): ReactElement => {
-  const [value, setValue] = useState("");
+  const [datetimeValue, setDatetimeValue] = useState("");
+  const [dateValue, setDateValue] = useState("");
+  const [timeValue, setTimeValue] = useState("");
   const [disabled, setDisabled] = useState(false);
+
   return (
-    <Box maxWidth={400} gap={2}>
+    <Box gap={2} maxWidth={500}>
       <Box padding={3}>
         <DateTimeField
+          disabled={disabled}
           title="type datetime"
           type="datetime"
-          value={value}
-          disabled={disabled}
+          value={datetimeValue}
           onChange={(v) => {
-            setValue(v);
+            setDatetimeValue(v);
           }}
         />
       </Box>
       <Box padding={3}>
         <DateTimeField
+          disabled={disabled}
           title="type date"
           type="date"
-          value={value}
-          disabled={disabled}
+          value={dateValue}
           onChange={(v) => {
-            setValue(v);
+            setDateValue(v);
           }}
         />
       </Box>
       <Box padding={3}>
         <DateTimeField
+          disabled={disabled}
           title="type time"
           type="time"
-          value={value}
-          disabled={disabled}
+          value={timeValue}
           onChange={(v) => {
-            setValue(v);
+            setTimeValue(v);
           }}
         />
+      </Box>
+      <Box width={200}>
+        <Button text="Toggle Disabled" onClick={() => setDisabled(!disabled)} />
+      </Box>
+      <Box paddingY={4}>
+        <Text bold>Datetime: {datetimeValue}</Text>
+        <Text bold>Date: {dateValue}</Text>
+        <Text bold>Time: {timeValue}</Text>
       </Box>
     </Box>
   );
