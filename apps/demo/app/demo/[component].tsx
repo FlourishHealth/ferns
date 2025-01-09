@@ -20,7 +20,7 @@ import cloneDeep from "lodash/cloneDeep";
 import startCase from "lodash/startCase";
 import React, {useEffect, useState} from "react";
 // @ts-ignore
-import {MarkdownView} from "react-native-markdown-view";
+import MarkdownView from "react-native-markdown-display";
 
 const ComponentProps = ({props}: {props: DemoConfigurationProp[]}) => {
   // TODO: setup these widths for mobile too.

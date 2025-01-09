@@ -10,6 +10,7 @@ import {
   CardConfiguration,
   CheckBoxConfiguration,
   CustomSelectFieldConfiguration,
+  DataTableConfiguration,
   DateTimeFieldConfiguration,
   EmailFieldConfiguration,
   FieldConfiguration,
@@ -19,6 +20,7 @@ import {
   LinkConfiguration,
   ModalConfiguration,
   MultiselectFieldConfiguration,
+  NumberFieldConfiguration,
   PaginationConfiguration,
   PasswordFieldConfiguration,
   PhoneNumberConfiguration,
@@ -46,8 +48,6 @@ import {
 } from "@story-config";
 import {FieldProps} from "ferns-ui";
 import React from "react";
-
-import {NumberFieldConfiguration} from "./story-config/NumberField.config";
 
 export type DemoConfigStatus = "planned" | "inProgress" | "ready" | "notSupported";
 
@@ -175,6 +175,7 @@ const Config: DemoConfigurationBase[] = [
   // ChatBubbleConfiguration,
   CheckBoxConfiguration,
   CustomSelectFieldConfiguration,
+  DataTableConfiguration,
   DateTimeFieldConfiguration,
   EmailFieldConfiguration,
   FieldConfiguration,

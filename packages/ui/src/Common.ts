@@ -11,18 +11,7 @@ import {
   FontAwesome6SolidNames,
 } from "./CommonIconTypes";
 
-export interface AccordionProps {
-  /**
-   * The content to be displayed inside the accordion.
-   */
-  children: React.ReactNode;
-
-  /**
-   * If true, an information modal will be included.
-   * @default false
-   */
-  includeInfoModal?: boolean;
-
+export interface InfoModalIconProps {
   /**
    * The content of the information modal.
    */
@@ -42,6 +31,19 @@ export interface AccordionProps {
    * The title of the information modal.
    */
   infoModalTitle?: ModalProps["title"];
+}
+
+export interface AccordionProps extends InfoModalIconProps {
+  /**
+   * The content to be displayed inside the accordion.
+   */
+  children: React.ReactNode;
+
+  /**
+   * If true, an information modal will be included.
+   * @default false
+   */
+  includeInfoModal?: boolean;
 
   /**
    * If true, the accordion will be collapsed.
@@ -1916,6 +1918,69 @@ export interface PaginationProps {
   totalPages: number;
 }
 
+/**
+ * Data Table
+ */
+export type DataTableCellData = {
+  value: any;
+  highlight?: SurfaceColor;
+  textSize?: "sm" | "md" | "lg";
+};
+
+export type DataTableCustomComponentMap = Record<
+  string,
+  React.ComponentType<{column: DataTableColumn; cellData: DataTableCellData}>
+>;
+export interface DataTableColumn {
+  title: string;
+  columnType: "text" | "number" | "date" | "boolean" | string;
+  width: number;
+  highlight?: SurfaceColor;
+  sortable?: boolean;
+  infoModalText?: string;
+}
+
+export interface DataTableProps {
+  data: {value: any; highlight?: SurfaceColor; textSize?: "sm" | "md" | "lg"}[][];
+  columns: DataTableColumn[];
+  alternateRowBackground?: boolean;
+  totalPages?: number;
+  page?: number;
+  setPage?: (page: number) => void;
+  pinnedColumns?: number;
+  sortColumn?: ColumnSortInterface;
+  setSortColumn?: (sortColumn?: ColumnSortInterface) => void;
+  rowHeight?: number;
+  defaultTextSize?: "sm" | "md" | "lg";
+  /**
+   * When tapping the eye icon, a modal is shown with more info about the row.
+   */
+  moreContentComponent?: React.ComponentType<{
+    column: DataTableColumn;
+    rowData: any[];
+    rowIndex: number;
+  }>;
+  // Extra data to pass to the more modal.
+  moreContentExtraData?: any[];
+  // Allows handling of custom column types.
+  customColumnComponentMap?: DataTableCustomComponentMap;
+}
+
+export interface DataTableCellProps {
+  value: any;
+  columnDef: DataTableColumn;
+  colIndex: number;
+  isPinnedHorizontal: boolean;
+  isPinnedRow?: boolean;
+  pinnedColumns: number;
+  columnWidths: number[];
+  backgroundColor: string;
+  highlight?: SurfaceColor;
+  customColumnComponentMap?: DataTableCustomComponentMap;
+  height: number;
+  textSize?: "sm" | "md" | "lg";
+}
+
 export interface TableHeaderProps {
   /**
    * Must be an instance of TableRow.
@@ -1934,7 +1999,7 @@ export interface TableHeaderProps {
   color?: BoxColor;
 }
 
-export interface TableHeaderCellProps {
+export interface TableHeaderCellProps extends InfoModalIconProps {
   /**
    * The content of the table header cell.
    */
@@ -1953,6 +2018,11 @@ export interface TableHeaderCellProps {
    * wrap the text yourself. Alignments will match between the cell and the title.
    */
   title?: string;
+  /**
+   * If provided, a tooltip icon will be shown and a tooltip will be shown when hovering over the
+   * icon.
+   */
+  infoText?: string;
 }
 
 export interface TableRowProps {
