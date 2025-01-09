@@ -38,6 +38,8 @@ const ConfirmationModal: FC<{
 
 const ButtonComponent: FC<ButtonProps> = ({
   confirmationText = "Are you sure you want to continue?",
+  customBackgroundColor,
+  customTextColor,
   disabled = false,
   fullWidth = false,
   iconName,
@@ -78,6 +80,14 @@ const ButtonComponent: FC<ButtonProps> = ({
       textColor = theme.text.secondaryDark;
     } else if (variant === "destructive") {
       bgColor = theme.surface.error;
+    }
+
+    if (customBackgroundColor) {
+      bgColor = customBackgroundColor;
+    }
+
+    if (customTextColor) {
+      textColor = customTextColor;
     }
 
     return {

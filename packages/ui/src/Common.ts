@@ -1411,6 +1411,14 @@ export interface ButtonProps {
    */
   confirmationText?: string;
   /**
+   * When status is "custom", determines the button's background color.
+   */
+  customBackgroundColor?: string;
+  /**
+   * When status is "custom", determines the button's text color.
+   */
+  customTextColor?: string;
+  /**
    * If true, the button will be disabled.
    * @default false
    */

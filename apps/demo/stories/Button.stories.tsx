@@ -95,6 +95,16 @@ export const ButtonVariants = (props: Partial<ButtonProps>) => {
             {...props}
           />
         </Box>
+        <Box padding={1}>
+          <Button
+            disabled
+            text="Custom"
+            customBackgroundColor="#00FF00"
+            customTextColor="#000000"
+            onClick={() => console.info("clicked")}
+            {...props}
+          />
+        </Box>
       </Box>
     </>
   );
