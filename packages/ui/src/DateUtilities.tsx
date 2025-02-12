@@ -333,3 +333,38 @@ export function getIsoDate(date: string | undefined): string | undefined {
   }
   return convertNullToUndefined(DateTime.fromISO(date).toUTC().toISO());
 }
+
+const usTimezoneOptions = [
+  {label: "Eastern", value: "America/New_York"},
+  {label: "Central", value: "America/Chicago"},
+  {label: "Mountain", value: "America/Denver"},
+  {label: "Pacific", value: "America/Los_Angeles"},
+  {label: "Alaska", value: "America/Anchorage"},
+  {label: "Hawaii", value: "Pacific/Honolulu"},
+  {label: "Arizona", value: "America/Phoenix"},
+];
+
+export function getTimezoneOptions(location: "USA" | "Worldwide", shortTimezone = false) {
+  let timezones: [string, string][];
+  if (location === "USA") {
+    timezones = usTimezoneOptions.map((tz) => [tz.label, tz.value]);
+  } else {
+    timezones = (Intl as any).supportedValuesOf("timeZone").map((tz: any) => {
+      return [tz, tz];
+    });
+  }
+  return timezones.map(([name, tz]) => {
+    const dateTime = DateTime.now().setZone(tz);
+    let tzAbbr = dateTime.toFormat("ZZZZ"); // Gets timezone abbreviation like "EST", "CST", etc.
+
+    // Special case for Arizona which returns MST during standard time
+    if (tz === "America/Phoenix") {
+      tzAbbr = "AZ";
+    }
+
+    return {
+      label: shortTimezone ? tzAbbr : name,
+      value: tz,
+    };
+  });
+}
