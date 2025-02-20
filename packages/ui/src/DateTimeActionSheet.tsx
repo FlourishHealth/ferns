@@ -1,5 +1,5 @@
-import {FontAwesome6} from "@expo/vector-icons";
 /* eslint-disable react-native-a11y/has-accessibility-hint */
+import {FontAwesome6} from "@expo/vector-icons";
 import {Picker} from "@react-native-picker/picker";
 import {getCalendars} from "expo-localization";
 import range from "lodash/range";
@@ -80,6 +80,7 @@ const TimeInput = ({
         accessibilityHint="Enter a number"
         aria-label="Text input field"
         enterKeyHint="done"
+        selectTextOnFocus
         keyboardType="number-pad"
         style={
           {
@@ -256,12 +257,7 @@ const MobileTime = ({
       </Box>
       {Boolean(type === "time" || type === "datetime") && (
         <Box paddingY={2}>
-          <TimezonePicker
-            showLabel={false}
-            timezone={timezone}
-            width="100%"
-            onChange={setTimezone}
-          />
+          <TimezonePicker hideTitle timezone={timezone} onChange={setTimezone} />
         </Box>
       )}
     </Box>
@@ -312,7 +308,7 @@ const WebTime = ({
       </Box>
       {Boolean(type === "time" || type === "datetime") && (
         <Box>
-          <TimezonePicker showLabel={false} timezone={timezone} onChange={setTimezone} />
+          <TimezonePicker hideTitle timezone={timezone} onChange={setTimezone} />
         </Box>
       )}
     </Box>
@@ -380,7 +376,7 @@ const DateCalendar = ({
             textDayFontWeight: "400",
             textDayFontSize: 16,
           }}
-          onDayPress={(day) => {
+          onDayPress={(day: {dateString: string}) => {
             setDate(day.dateString);
             // If type is just date, we can shortcut and close right away.
             // time and datetime need to wait for the primary button.
